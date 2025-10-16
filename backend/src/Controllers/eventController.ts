@@ -77,8 +77,6 @@ export const addAttendeeToEvent = async (req: Request, res: Response) => {
   const { eventId } = req.params;
   const { name, email } = req.body;
 
-  console.log("Adding attendee:", { name, email });
-
   try {
     const event = await prisma.event.findUnique({
       where: { id: Number(eventId) },

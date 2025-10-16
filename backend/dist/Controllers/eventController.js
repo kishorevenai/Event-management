@@ -85,7 +85,6 @@ exports.addEvent = addEvent;
 const addAttendeeToEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { eventId } = req.params;
     const { name, email } = req.body;
-    console.log("Adding attendee:", { name, email });
     try {
         const event = yield prisma.event.findUnique({
             where: { id: Number(eventId) },

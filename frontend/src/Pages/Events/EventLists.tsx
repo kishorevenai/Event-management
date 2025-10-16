@@ -82,7 +82,6 @@ const EventLists = () => {
   const [deleteEvent] = useDeleteEventMutation();
 
   if (isSuccess) {
-    console.log("data:", data);
     rows = data.map((event: Event) => ({
       id: event.id,
       Events: event.name,

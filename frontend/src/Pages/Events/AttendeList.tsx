@@ -77,7 +77,6 @@ const AttendeList = () => {
   let people = [];
 
   if (isSuccess) {
-    console.log("event data:", data);
     eventTitle = data.name;
     people = data.People || [];
   }
