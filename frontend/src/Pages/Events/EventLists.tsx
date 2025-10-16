@@ -1,0 +1,90 @@
+import DataTable from "../../Common/Table";
+import type { GridColDef } from "@mui/x-data-grid";
+import { useGetEventsQuery } from "./EventApiSlice";
+import { useNavigate } from "react-router-dom";
+import { useDeleteEventMutation } from "./EventApiSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+
+type Event = {
+  id: number;
+  name: string;
+  location: string;
+  maxAttendees: number | null;
+};
+
+const EventLists = () => {
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 200 },
+    { field: "Events", headerName: "Event Name", width: 500 },
+    { field: "Location", headerName: "Location", width: 200 },
+    { field: "Max Attendees", headerName: "Max Attendees", width: 200 },
+    {
+      field: "Action",
+      headerName: "Action",
+      width: 200,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => (
+        <div className="flex gap-2">
+          <button
+            className="rounded hover:bg-red-100"
+            onClick={() => handleDelete(params.row.id)}
+            title="Delete Event"
+          >
+            <DeleteIcon style={{ color: "red" }} />
+          </button>
+
+          <button
+            className="rounded hover:bg-blue-100"
+            onClick={() => handleRoute(params.row)}
+            title="View Attendees"
+          >
+            <EmojiPeopleIcon style={{ color: "black" }} />
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+  const navigate = useNavigate();
+
+  let rows = [];
+
+  const { data, isLoading, isSuccess, isError, error } = useGetEventsQuery({});
+  const [deleteEvent] = useDeleteEventMutation();
+
+  if (isSuccess) {
+    console.log("data:", data);
+    rows = data.map((event: Event) => ({
+      id: event.id,
+      Events: event.name,
+      Location: event.location,
+      "Max Attendees": event.maxAttendees,
+    }));
+  }
+
+  const handleRoute = (data: any) => {
+    navigate(`/Attendee-List/${data.id}`);
+  };
+
+  const handleDelete = async (id: number) => {
+    await deleteEvent(id);
+  };
+
+  return (
+    <div className="w-[80%] mx-auto mt-10">
+      <p className="text-primary my-5 ml-5 w-[80%]">Event lists</p>
+      <DataTable
+        error={isError ? error : null}
+        loading={isLoading}
+        height={600}
+        rows={rows}
+        cols={columns}
+        callBack={() => null}
+      />
+    </div>
+  );
+};
+
+export default EventLists;
