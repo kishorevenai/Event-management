@@ -7,11 +7,11 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="border-b h-[60px] flex justify-between items-center px-10">
+    <div className="border-b h-[60px] flex justify-between items-center sm:px-2">
       {/* left */}
       <Link to={"/"}>
-        <div className="w-fit flex items-center gap-2">
-          <div className="w-[50px]">
+        <div className="w-fit flex items-center gap-2 ">
+          <div className="w-[50px] sm:w-[50px] md:w-[50px]">
             <svg
               fill="none"
               viewBox="0 0 48 48"
@@ -31,13 +31,15 @@ const Header = () => {
               ></path>
             </svg>
           </div>
-          <p className="text-[30px]">EVENTLY</p>
+          <p className="text-[20px] hidden md:block md:text-[30px] lg:text-[32px] xl:text-[36px] font-bold">
+            EVENTLY
+          </p>
         </div>
       </Link>
 
       {/* Middle*/}
 
-      <div className="w-[220px] flex justify-between">
+      <div className="w-[220px] flex justify-evenly mx-[10px] gap-2">
         <Link
           to="/"
           className={`${
@@ -62,7 +64,7 @@ const Header = () => {
       </div>
 
       {/* Right */}
-      <div className="w-[30px]">
+      <div className="w-[30px] hidden">
         <img src={ProfilePicture} alt="Profile" />
       </div>
     </div>

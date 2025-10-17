@@ -35,7 +35,7 @@ const AddEvent = () => {
   return (
     <form
       onSubmit={handleSaveEvent}
-      className="max-w-[1000px] mx-auto mt-[50px]"
+      className="max-w-[1000px] mx-auto mt-[50px] px-[20px]"
     >
       <div className="mb-10">
         <p className="text-primary">CREATE EVENT</p>
